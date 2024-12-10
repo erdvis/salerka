@@ -17,6 +17,7 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            flex-direction: column;
         }
 
         /* Calculator Container */
@@ -28,6 +29,7 @@
             width: 90%;
             max-width: 400px;
             text-align: center;
+            z-index: 10; /* Ensure calculator is on top */
         }
 
         /* Header */
@@ -73,13 +75,21 @@
             font-size: 1.2em;
             color: #00ff00;
         }
+
+        /* Floating Ko-fi Button */
+        #kofi-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
     </style>
 </head>
 <body>
     <div class="calculator">
         <h1>Po kiek reik susimest</h1>
         <form id="fuelCalculator">
-            <input type="number" id="fuelPrice" placeholder="Salerkos kaina" required>
+            <input type="number" id="fuelPrice" placeholder="Saliarkos kaina" required>
             <input type="number" id="fuelConsumption" placeholder="Kiek ryja" required>
             <input type="number" id="distance" placeholder="Atstumas" required>
             <input type="number" id="persons" placeholder="Kiek žmonių" required>
@@ -88,6 +98,10 @@
         <div id="result" class="result"></div>
     </div>
 
+    <!-- Ko-fi Floating Button -->
+    <div id="kofi-widget"></div>
+
+    <!-- Calculate Function -->
     <script>
         function calculateCost() {
             // Get input values
@@ -116,6 +130,17 @@
                 Vienam žmogui: €${costPerPerson}
             `;
         }
+    </script>
+
+    <!-- Ko-fi Widget Script -->
+    <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script>
+    <script>
+        kofiWidgetOverlay.draw('stankunas', {
+            'type': 'floating-chat',
+            'floating-chat.donateButton.text': 'Sušelpk man',  <!-- Changed text -->
+            'floating-chat.donateButton.background-color': '#ff38b8',
+            'floating-chat.donateButton.text-color': '#fff'
+        });
     </script>
 </body>
 </html>
