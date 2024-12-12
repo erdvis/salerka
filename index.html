@@ -89,10 +89,10 @@
     <div class="calculator">
         <h1>Po kiek reik susimest</h1>
         <form id="fuelCalculator">
-            <input type="number" id="fuelPrice" placeholder="Saliarkos kaina" required>
-            <input type="number" id="fuelConsumption" placeholder="Kiek ryja" required>
-            <input type="number" id="distance" placeholder="Atstumas" required>
-            <input type="number" id="persons" placeholder="Kiek žmonių" required>
+            <input type="text" id="fuelPrice" placeholder="Saliarkos kaina" required>
+            <input type="text" id="fuelConsumption" placeholder="Kiek ryja" required>
+            <input type="text" id="distance" placeholder="Atstumas" required>
+            <input type="text" id="persons" placeholder="Kiek žmonių" required>
             <button type="button" onclick="calculateCost()">Nu žiūrim</button>
         </form>
         <div id="result" class="result"></div>
@@ -104,11 +104,16 @@
     <!-- Calculate Function -->
     <script>
         function calculateCost() {
-            // Get input values
-            const fuelPrice = parseFloat(document.getElementById('fuelPrice').value);
-            const fuelConsumption = parseFloat(document.getElementById('fuelConsumption').value);
-            const distance = parseFloat(document.getElementById('distance').value);
-            const persons = parseInt(document.getElementById('persons').value);
+            // Helper function to normalize input: replace commas with dots
+            function normalize(value) {
+                return parseFloat(value.replace(',', '.'));
+            }
+
+            // Get input values and normalize commas
+            const fuelPrice = normalize(document.getElementById('fuelPrice').value);
+            const fuelConsumption = normalize(document.getElementById('fuelConsumption').value);
+            const distance = normalize(document.getElementById('distance').value);
+            const persons = normalize(document.getElementById('persons').value);
 
             // Validate inputs
             if (isNaN(fuelPrice) || isNaN(fuelConsumption) || isNaN(distance) || isNaN(persons) || persons <= 0) {
@@ -137,7 +142,7 @@
     <script>
         kofiWidgetOverlay.draw('stankunas', {
             'type': 'floating-chat',
-            'floating-chat.donateButton.text': 'Sušelpk man',  <!-- Changed text -->
+            'floating-chat.donateButton.text': 'Sušelpk man',
             'floating-chat.donateButton.background-color': '#ff38b8',
             'floating-chat.donateButton.text-color': '#fff'
         });
